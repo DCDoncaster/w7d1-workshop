@@ -4,6 +4,10 @@ const {Cheese} = require('./models')
 const { reset } = require('nodemon')
 const app = express()
 buildDB()
+//middleware to parse incoming JSONs 
+app.use(express.json())
+
+
 
 
 app.get('/cheeses/:cheese', async(req,res)=>{
@@ -50,6 +54,12 @@ app.get('/cheeses', async (req,res)=>{
     res.send(startsWithAlpha)
 })
 
+app.post('/cheeses', (req,res)=>{
+    console.log('incoming request')
+    //without the code on line 7/8 this would return undefined
+    console.log(req.body)
+    res.sendStatus(200)
+})
 
 app.listen(3000,()=>{
     console.log('Server running on http://localhost:3000')
